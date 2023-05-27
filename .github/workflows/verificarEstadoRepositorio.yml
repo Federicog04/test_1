@@ -1,0 +1,26 @@
+name: verificar estado repositorio
+on: 
+  push: 
+      branches: 
+            - main
+jobs:
+  check: 
+      runs-on: ubuntu-latest
+      steps: 
+        - name: verificar codigo
+          uses: actions/checkout@v2
+          
+        - name: verificar que el repositorio se encuentre vacio
+          id: verificar_estado
+          run: | 
+              if[-z "$(git log)"]; then
+                echo "El repositorio esta vacio"
+                echo "::set-output name=empty::true"
+              else
+                echo "El repositorio esta ocupado. El ultimo commit es: "
+                git log -1 --pretty=format:"%h - %s"
+                echo "::set-output name=empty::false"
+              fi 
+          shell: bash 
+                
+                
