@@ -13,7 +13,7 @@ jobs:
         - name: verificar que el repositorio se encuentre vacio
           id: verificar_estado
           run: | 
-              if[-z "$(git log)"]; then
+              if [ -z "$(git log)" ]; then
                 echo "El repositorio esta vacio"
                 echo "::set-output name=empty::true"
               else
